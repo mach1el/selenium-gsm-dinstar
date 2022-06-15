@@ -1,0 +1,10 @@
+test:
+  hosts:
+    # - ip=10.10.92.25 username=admin password=Admin@1234!
+    - ip=10.10.92.33 username=admin password=Admin@1234!
+    - ip=10.10.92.34 username=admin password=Admin@1234!
+    # - ip=10.10.92.32 username=admin password=Admin@1234!
+    # - ip=10.10.93.17 username=admin password=Admin@1234!
+    # - ip=10.10.92.22 username=admin password=Admin@1234!
+    # - ip=10.10.92.23 username=admin password=Admin@1234!
+    # - ip=10.10.92.24 username=admin password=Admin@1234!
