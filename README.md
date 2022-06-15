@@ -8,25 +8,29 @@ Using selenium for automating operations on GSM dinstar device
     pip install -r requirements.txt
     
 ## Setup site inventory
-You can setup group IP such like ansible inventroy for multiple IP to check in `sites` file.For example:
+You can setup group IP with yaml syntax for handling multiple IP to check in `gsmAutomation/sites/sites.yaml` file.For example:
 
-    [site-1]
-    192.168.1.1
-    192.168.1.2
-    
-    [site-2]
-    192.168.2.1
-    192.168.2.2
+    test:
+      hosts:
+        - ip=10.10.92.33 username=admin password=mypass
+        - ip=10.10.92.34 username=admin password=mypass
 
 ## For running the pipeline, give input variable
 **NOTE: this just for gitlab CI/CD**
 
-    site: site-1
+    site: test
     
 ## Running
 * For automatic send SMS
 ```
-from gsmAutomation import Operator,MainArguments
-site=MainArguments()
-Operator.processed(site)
+import time
+from gsmAutomation import MainArguments
+from gsmAutomation import UpdateDatabase
+from gsmAutomation.sites import getSite
+from gsmAutomation.Operator import Doer,API
+
+site = getSite(MainArguments())
+session = Doer(site=site)
+session._login()
+session._send_sms()
 ```
