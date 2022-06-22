@@ -7,6 +7,50 @@ from .gsmAPI import query_sms_deliver_status
 from .gsmOperating import Login,SendSMS,DisablePort
 from selenium.webdriver.remote.command import Command
 
+class loginSession:
+	sessions = []
+	def __init__(self,site):
+		self.site = site
+
+	def _gen_driver(self):
+		return webdriver.Firefox()
+
+	def login(self):
+		login = queue.Queue()
+		session = queue.Queue()
+
+		for x in range(len(self.site)):
+			t = Login(login,session,self._gen_driver())
+			t.daemon=True
+			t.start()
+
+		for host in self.site:
+			login.put(host)
+
+		for x in range(len(self.site)):
+			loginSession.sessions.append(session.get())
+			login.join()
+
+class sendSMSphase(loginSession):
+	sendDate = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+	def __init__(self):
+		loginSession.__init__(self,site=None)
+		self.sessions = loginSession.sessions
+
+	def send(self):
+		smsQueue = queue.Queue()
+		for x in range(len(self.sessions)):
+			t = SendSMS(smsQueue)
+			t.daemon=True
+			t.start()
+
+		for driver in self.sessions:
+			smsQueue.put(driver)
+
+		for x in range(len(self.sessions)):
+			smsQueue.join()
+
 class Doer(object):
 	date = ""
 	def __init__(self,site=None,checked_list=[]):
@@ -62,11 +106,10 @@ class Doer(object):
 		for x in range(len(self.driver_list)):
 			portQueue.join()
 
-
-class API(Doer):
+class API(sendSMSphase):
 	def __init__(self,site):
 		self.site = site
-		self.date = Doer.date
+		self.date = sendSMSphase.sendDate
 
 	def _check_deliver_status(self):
 		data_list = []
