@@ -9,32 +9,32 @@ sys.dont_write_bytecode=True
 
 
 class SchemaHost(object):
-	def __init__(self,host):
+	def __init__(self,host=None):
 		self.host = host
 	def get(self):
 		return "http://"+self.host
 
 class Login(Thread):
-	def __init__(self,queue,nextQueue,driver):
+	def __init__(self,login,session,driver):
 		Thread.__init__(self)
-		self.queue = queue
-		self.nextQueue = nextQueue
+		self.login = login
+		self.session = session
 		self.driver = driver
 		self.username = ""
 		self.password = ""
 
 	def run(self):
 		try:
-			host,self.username,self.password = [element.split('=')[1] for element in self.queue.get().split(" ")]
+			host,self.username,self.password = [element.split('=')[1] for element in self.login.get().split(" ")]
 			self.driver.get(SchemaHost(host).get())
 			self.driver.find_element(By.NAME,"username").send_keys(self.username)
 			self.driver.find_element(By.NAME,"password").send_keys(self.password)
 			self.driver.find_element(By.XPATH,"//input[@type='submit' and @value='Login']").click()
-			self.nextQueue.put(self.driver)
-			self.queue.task_done()
-			self.nextQueue.task_done()
+			self.session.put(self.driver)
+			self.login.task_done()
+			self.session.task_done()
 		except:
-			self.queue.task_done()
+			self.login.task_done()
 
 class SendSMS(Thread):
 	def __init__(self,queue):
