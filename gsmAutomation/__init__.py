@@ -1,6 +1,7 @@
 import sys
 import psycopg2
 from datetime import datetime
+from gsmAutomation.sites import getSite
 from argparse import ArgumentParser,RawTextHelpFormatter
 
 sys.dont_write_bytecode=True
@@ -30,15 +31,24 @@ Examples:
 class UpdateDatabase:
 	def __init__(self,data_list):
 		self.data_list = data_list
+		self.getDBinfo()
 		self.conn = psycopg2.connect(
-			host="10.10.94.129",
-			port=7777,
-			database="gsm_ports",
-			user="postgres",
-			password="postgres")
+			host=self.ip,
+			port=self.port,
+			database=self.db,
+			user=self.username,
+			password=self.password)
 
 		self.conn.autocommit = True
 		self.cur = self.conn.cursor()
+
+	def getDBinfo(self):
+		ip,port,username,password,db = getSite("database")[0].split(" ")
+		self.ip = ip.split("=")[1]
+		self.port = port.split("=")[1]
+		self.username = username.split("=")[1]
+		self.password = password.split("=")[1]
+		self.db = db.split("=")[1]
 
 	def _truncate_old_data(self):
 		self.cur.execute('''truncate table test restart identity;''')
