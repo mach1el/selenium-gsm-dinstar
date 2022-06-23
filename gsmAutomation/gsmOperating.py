@@ -59,6 +59,45 @@ class SendSMS(Thread):
 		except:
 			self.queue.task_done()
 
+class ClearSMS(Thread):
+	def __init__(self,queue):
+		Thread.__init__(self)
+		self.queue = queue
+
+	@staticmethod
+	def clearOutbox(driver):
+		driver.switch_to.frame(driver.find_element(By.NAME,"menuFrame"))
+		driver.find_element(By.ID,"BoldHrefSMS").click()
+		driver.find_element(By.LINK_TEXT,"SMS Outbox").click()
+		driver.switch_to.parent_frame()
+		driver.switch_to.frame(driver.find_element(By.NAME,"mainframe"))
+		time.sleep(2)
+		driver.find_element(By.ID,"EiaSmsSendReportFilter")
+		driver.find_element(By.XPATH,"//table[@class='TB']")
+		driver.find_element(By.XPATH,"//input[@type='submit' and @name='delete']").click()
+		driver.switch_to.parent_frame()
+
+	@staticmethod
+	def clearInbox(driver):
+		driver.switch_to.frame(driver.find_element(By.NAME,"menuFrame"))
+		driver.find_element(By.LINK_TEXT,"SMS Inbox").click()
+		driver.switch_to.parent_frame()
+		driver.switch_to.frame(driver.find_element(By.NAME,"mainframe"))
+		time.sleep(2)
+		driver.find_element(By.ID,"EiaSmsRecvFilter")
+		driver.find_element(By.XPATH,"//table[@class='TB']")
+		driver.find_element(By.XPATH,"//input[@type='submit' and @name='delete']").click()
+		driver.switch_to.parent_frame()
+
+	def run(self):
+		driver = self.queue.get()
+		try:
+			self.clearOutbox(driver)
+			self.clearInbox(driver)
+			self.queue.task_done()
+		except:
+			self.queue.task_done()
+
 class DisablePort(Thread):
 	def __init__(self,queue,driver):
 		Thread.__init__(self)
