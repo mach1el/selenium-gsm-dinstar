@@ -25,12 +25,13 @@ You can setup group IP with yaml syntax for handling multiple IP to check in `gs
 ```
 import time
 from gsmAutomation import MainArguments
-from gsmAutomation import UpdateDatabase
 from gsmAutomation.sites import getSite
-from gsmAutomation.Operator import Doer,API
+from gsmAutomation.Operator import loginSession,sendSMSphase
 
 site = getSite(MainArguments())
-session = Doer(site=site)
-session._login()
-session._send_sms()
+session = loginSession(site=site)
+session.login()
+sms = sendSMSphase()
+sms.send()
 ```
+* For more examples ,please check in [test](https://github.com/mach1el/GSM-Dinstar-Automation/tree/master/gsmAutomation/test) path
