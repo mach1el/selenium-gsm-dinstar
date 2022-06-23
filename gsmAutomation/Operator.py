@@ -9,7 +9,7 @@ from selenium.webdriver.remote.command import Command
 
 class loginSession:
 	sessions = []
-	def __init__(self,site):
+	def __init__(self,site=None):
 		self.site = site
 
 	def _gen_driver(self):
@@ -35,7 +35,7 @@ class sendSMSphase(loginSession):
 	sendDate = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
 	def __init__(self):
-		loginSession.__init__(self,site=None)
+		loginSession.__init__(self)
 		self.sessions = loginSession.sessions
 
 	def send(self):
@@ -53,7 +53,7 @@ class sendSMSphase(loginSession):
 
 class clearSMSphase(loginSession):
 	def __init__(self):
-		loginSession.__init__(self,site=None)
+		loginSession.__init__(self)
 		self.sessions = loginSession.sessions
 
 	def clear(self):
@@ -72,7 +72,7 @@ class clearSMSphase(loginSession):
 
 class disablePortPhase(loginSession):
 	def __init__(self,checked_list):
-		loginSession.__init__(self,site=None)
+		loginSession.__init__(self)
 		self.checked_list = checked_list
 		self.sessions = loginSession.sessions
 
@@ -89,6 +89,15 @@ class disablePortPhase(loginSession):
 
 		for x in range(len(self.sessions)):
 			portQueue.join()
+
+class closeDriver(loginSession):
+	def __init__(self):
+		loginSession.__init__(self)
+		self.sessions = loginSession.sessions
+
+	def close(self):
+		for driver in self.sessions:
+			driver.quit()
 
 class API(sendSMSphase):
 	def __init__(self,site):
