@@ -4,7 +4,7 @@ import queue
 from datetime import datetime
 from selenium import webdriver
 from .gsmAPI import query_sms_deliver_status
-from .gsmOperating import Login,SendSMS,DisablePort
+from .gsmOperating import Login,SendSMS,ClearSMS,DisablePort
 from selenium.webdriver.remote.command import Command
 
 class loginSession:
@@ -51,59 +51,43 @@ class sendSMSphase(loginSession):
 		for x in range(len(self.sessions)):
 			smsQueue.join()
 
-class Doer(object):
-	date = ""
-	def __init__(self,site=None,checked_list=[]):
-		self.site = site
+class clearSMSphase(loginSession):
+	def __init__(self):
+		loginSession.__init__(self,site=None)
+		self.sessions = loginSession.sessions
+
+	def clear(self):
+		sessionQueue = queue.Queue()
+
+		for x in range(len(self.sessions)):
+			t = ClearSMS(sessionQueue)
+			t.daemon=True
+			t.start()
+
+		for driver in self.sessions:
+			sessionQueue.put(driver)
+
+		for x in range(len(self.sessions)):
+			sessionQueue.join()
+
+class disablePortPhase(loginSession):
+	def __init__(self,checked_list):
+		loginSession.__init__(self,site=None)
 		self.checked_list = checked_list
-		self.driver_list = []
+		self.sessions = loginSession.sessions
 
-	def _gen_driver(self):
-		return webdriver.Firefox()
-
-	def _login(self):
-		login = queue.Queue()
-		nextQueue = queue.Queue()
-
-		for x in range(len(self.site)):
-			t = Login(login,nextQueue,self._gen_driver())
-			t.daemon=True
-			t.start()
-
-		for host in self.site:
-			login.put(host)
-
-		for x in range(len(self.site)):
-			self.driver_list.append(nextQueue.get())
-			login.join()
-
-	def _send_sms(self):
-		smsQueue = queue.Queue()
-		Doer.date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-
-		for x in range(len(self.site)):
-			t = SendSMS(smsQueue)
-			t.daemon=True
-			t.start()
-
-		for driver in self.driver_list:
-			smsQueue.put(driver)
-
-		for x in range(len(self.site)):
-			smsQueue.join()
-
-	def _disable_port(self,checked_list):
+	def disable(self):
 		portQueue = queue.Queue()
 
-		for driver in self.driver_list:
+		for driver in self.sessions:
 			t = DisablePort(portQueue,driver)
 			t.daemon=True
 			t.start()
 
-		for data in checked_list:
+		for data in self.checked_list:
 			portQueue.put(data)
 
-		for x in range(len(self.driver_list)):
+		for x in range(len(self.sessions)):
 			portQueue.join()
 
 class API(sendSMSphase):
