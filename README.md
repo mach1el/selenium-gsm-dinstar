@@ -22,6 +22,8 @@ You can setup group IP with yaml syntax for handling multiple IP to check in `gs
     
 ## Running
 * For automatic send SMS
+
+`vim gsm_send_sms.py`
 ```
 import time
 from gsmAutomation import MainArguments
@@ -34,4 +36,5 @@ session.login()
 sms = sendSMSphase()
 sms.send()
 ```
+`python gsm_send_sms.py -site test`
 * For more examples ,please check in [test](https://github.com/mach1el/GSM-Dinstar-Automation/tree/master/gsmAutomation/test) path
