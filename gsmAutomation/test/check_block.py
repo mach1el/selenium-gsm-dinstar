@@ -8,7 +8,7 @@ import time
 from gsmAutomation import MainArguments
 from gsmAutomation import UpdateDatabase
 from gsmAutomation.sites import getSite
-from gsmAutomation.Operator import loginSession,sendSMSphase,disablePortPhase,API
+from gsmAutomation.Operator import loginSession,sendSMSphase,disablePortPhase,closeDriver,API
 
 site = getSite(MainArguments())
 session = loginSession(site=site)
@@ -21,3 +21,5 @@ db_session = UpdateDatabase(smsData)
 db_session._add_new_data()
 disablePort = disablePortPhase(smsData)
 disablePort.disable()
+close = closeDriver()
+close.close()
