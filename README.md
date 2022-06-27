@@ -5,6 +5,7 @@
 Using selenium for automating operations on GSM dinstar device
 
 ## Install Requirements
+    apt install python3-psycopg2
     pip install -r requirements.txt
     
 ## Setup site inventory
