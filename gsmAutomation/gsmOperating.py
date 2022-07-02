@@ -110,8 +110,6 @@ class DisablePort(Thread):
 		return self.driver.execute_script(f"return document.getElementById('{self.item_id}').checked")
 
 	def uncheck(self):
-		if len(self.ports) == 32:
-			self.ports.pop(0)
 		for port in self.ports:
 			self.item_id = "idPort"+str(port)
 			if self.is_checked():
