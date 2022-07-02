@@ -42,7 +42,7 @@ class query_sms_deliver_status(Thread):
 			ports["inactive_ports"]+=list(set(listPorts)-set(ports["active_ports"]))
 			ports["active_ports"].sort()
 			ports["total_active"].append(len(ports["active_ports"]))
-			if ports["inactive_ports"] > 1: ports["inactive_ports"].pop(0)
+			if len(ports["inactive_ports"]) > 1: ports["inactive_ports"].pop(0)
 		return ports
 
 	def handle_request(self):
