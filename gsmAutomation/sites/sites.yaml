@@ -1,6 +1,6 @@
 database:
   hosts:
-    - ip=10.10.94.129 port=7777 username=postgres password=postgres database=gsm_ports
+    - ip=10.10.94.129 port=7777 username=postgres password=postgres database=gsm_check
 test:
   hosts:
     - ip=10.10.92.33 username=admin password=Admin@1234!
