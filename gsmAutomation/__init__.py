@@ -29,7 +29,8 @@ Examples:
 	return site
 
 class UpdateDatabase:
-	def __init__(self,data_list):
+	def __init__(self,site,data_list):
+		self.site = site
 		self.data_list = data_list
 		self.getDBinfo()
 		self.conn = psycopg2.connect(
@@ -51,7 +52,7 @@ class UpdateDatabase:
 		self.db = db.split("=")[1]
 
 	def _truncate_old_data(self):
-		self.cur.execute('''truncate table test restart identity;''')
+		self.cur.execute('''truncate table {0} restart identity;'''.format(self.site))
 
 	def _add_new_data(self):
 		self._truncate_old_data()
@@ -63,8 +64,8 @@ class UpdateDatabase:
 			total_active = total_active[1][0]
 			created_date=datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 			self.cur.execute('''\
-				insert into test (gsm_ip,active_ports,inactive_ports,total_active,created) \
-				values ('{0}','{1}','{2}',{3},'{4}')
-				'''.format(gsm_ip,active_ports,inactive_ports,total_active,created_date))
+				insert into {0} (gsm_ip,active_ports,inactive_ports,total_active,created) \
+				values ('{1}','{2}','{3}',{4},'{5}')
+				'''.format(self.site,gsm_ip,active_ports,inactive_ports,total_active,created_date))
 		self.conn.commit()
 		self.conn.close()
