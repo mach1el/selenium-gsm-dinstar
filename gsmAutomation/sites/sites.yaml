@@ -1,7 +1,23 @@
 database:
   hosts:
     - ip=10.10.94.129 port=7777 username=postgres password=postgres database=gsm_check
+
 test:
   hosts:
     - ip=10.10.92.33 username=admin password=Admin@1234!
     - ip=10.10.92.34 username=admin password=Admin@1234!
+d22:
+  hosts:
+    - ip=10.10.88.11 username=admin password=Admin@1234!
+    - ip=10.10.88.13 username=admin password=Admin@1234!
+    - ip=10.10.88.12 username=admin password=Admin@1234!
+    - ip=10.10.88.14 username=admin password=Admin@1234!
+    - ip=10.10.88.15 username=admin password=Admin@1234!
+    - ip=10.10.88.10 username=admin password=Admin@1234!
+    - ip=10.10.88.18 username=admin password=Admin@1234!
+    - ip=10.10.88.19 username=admin password=Admin@1234!
+    - ip=10.10.88.20 username=admin password=Admin@1234!
+    - ip=10.10.88.21 username=admin password=Admin@1234!
+    - ip=10.10.88.16 username=admin password=Admin@1234!
+    - ip=10.10.88.22 username=admin password=Admin@1234!
+    - ip=10.10.88.17 username=admin password=Admin@1234!
