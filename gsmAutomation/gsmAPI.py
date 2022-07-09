@@ -29,20 +29,26 @@ class query_sms_deliver_status(Thread):
 	@staticmethod
 	def parse_data(host,data,listPorts):
 		ports = {"host":host,"active_ports":[],"inactive_ports":[],"total_active":[]}
-		data = json.loads(data.text)['result']
-		if len(data) == 0:
+		try:
+			data = json.loads(data.text)['result']
+			if len(data) == 0:
+				ports["active_ports"].append("No ports")
+				ports["inactive_ports"]+=listPorts
+				ports["total_active"].append(0)
+			else:
+				for port in data:
+					if port['port'] not in ports["active_ports"]:
+						ports["active_ports"].append(port['port'])
+
+				ports["inactive_ports"]+=list(set(listPorts)-set(ports["active_ports"]))
+				ports["active_ports"].sort()
+				ports["total_active"].append(len(ports["active_ports"]))
+				if len(ports["inactive_ports"]) > 1: ports["inactive_ports"].pop(0)
+		except:
 			ports["active_ports"].append("No ports")
 			ports["inactive_ports"]+=listPorts
 			ports["total_active"].append(0)
-		else:
-			for port in data:
-				if port['port'] not in ports["active_ports"]:
-					ports["active_ports"].append(port['port'])
-
-			ports["inactive_ports"]+=list(set(listPorts)-set(ports["active_ports"]))
-			ports["active_ports"].sort()
-			ports["total_active"].append(len(ports["active_ports"]))
-			if len(ports["inactive_ports"]) > 1: ports["inactive_ports"].pop(0)
+		
 		return ports
 
 	def handle_request(self):

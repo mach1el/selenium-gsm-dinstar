@@ -10,4 +10,5 @@ file=os.path.join(dir,"sites.yaml")
 
 def getSite(site):
 	sites = open(file)
-	return yaml.safe_load(sites)[site]['hosts']
+	if site == "database": return yaml.safe_load(sites)[site]['hosts']
+	else: return (site,yaml.safe_load(sites)[site]['hosts'])
