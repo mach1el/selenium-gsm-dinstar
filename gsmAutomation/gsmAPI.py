@@ -28,7 +28,8 @@ class query_sms_deliver_status(Thread):
 
 	@staticmethod
 	def parse_data(host,data,listPorts):
-		ports = {"host":host,"active_ports":[],"inactive_ports":[],"total_active":[]}
+	ports = {"host":host,"active_ports":[],"inactive_ports":[],"total_active":[]}
+	try:
 		data = json.loads(data.text)['result']
 		if len(data) == 0:
 			ports["active_ports"].append("No ports")
@@ -43,14 +44,12 @@ class query_sms_deliver_status(Thread):
 			ports["active_ports"].sort()
 			ports["total_active"].append(len(ports["active_ports"]))
 			if len(ports["inactive_ports"]) > 1: ports["inactive_ports"].pop(0)
-		return ports
-
-	def handle_request(self):
-		try:
-			resp = self.session.post(self.api,json=self.data,headers=self.headers,auth=HTTPDigestAuth(self.username,self.password),verify=False)
-		except:
-			resp = "Failed"
-		return resp
+	except:
+		ports["active_ports"].append("No ports")
+		ports["inactive_ports"]+=listPorts
+		ports["total_active"].append(0)
+	
+	return ports
 
 	def run(self):
 		host,self.username,self.password = [element.split('=')[1] for element in self.hostQueue.get().split(" ")]
