@@ -10,14 +10,14 @@ from gsmAutomation import UpdateDatabase
 from gsmAutomation.sites import getSite
 from gsmAutomation.Operator import loginSession,sendSMSphase,disablePortPhase,closeDriver,API
 
-site = getSite(MainArguments())
-session = loginSession(site=site)
+site_name,site_hosts = getSite(MainArguments())
+session = loginSession(site=site_hosts)
 session.login()
 sms = sendSMSphase()
 sms.send()
 time.sleep(42)
-smsData = API(site)._check_deliver_status()
-db_session = UpdateDatabase(site,smsData)
+smsData = API(site_hosts)._check_deliver_status()
+db_session = UpdateDatabase(site_name,smsData)
 db_session._add_new_data()
 disablePort = disablePortPhase(smsData)
 disablePort.disable()

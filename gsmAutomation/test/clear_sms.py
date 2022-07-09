@@ -9,8 +9,8 @@ from gsmAutomation import MainArguments
 from gsmAutomation.sites import getSite
 from gsmAutomation.Operator import loginSession,clearSMSphase
 
-site = getSite(MainArguments())
-session = loginSession(site=site)
+site_name,site_hosts = getSite(MainArguments())
+session = loginSession(site=site_hosts)
 session.login()
 clearSMS = clearSMSphase()
 clearSMS.clear()
