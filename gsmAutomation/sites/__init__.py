@@ -10,4 +10,4 @@ file=os.path.join(dir,"sites.yaml")
 
 def getSite(site):
 	sites = open(file)
-	return yaml.safe_load(sites)[site]['hosts']
+	return (site,yaml.safe_load(sites)[site]['hosts'])
