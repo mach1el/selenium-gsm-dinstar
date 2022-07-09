@@ -51,6 +51,13 @@ class query_sms_deliver_status(Thread):
 		
 		return ports
 
+	def handle_request(self):
+		try:
+			resp = self.session.post(self.api,json=self.data,headers=self.headers,auth=HTTPDigestAuth(self.username,self.password),verify=False)
+		except:
+			resp = "Failed"
+		return resp
+
 	def run(self):
 		host,self.username,self.password = [element.split('=')[1] for element in self.hostQueue.get().split(" ")]
 		self.hostQueue.task_done()
