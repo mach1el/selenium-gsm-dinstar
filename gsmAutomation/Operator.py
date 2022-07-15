@@ -13,7 +13,9 @@ class loginSession:
 		self.site = site
 
 	def _gen_driver(self):
-		return webdriver.Firefox()
+		driver = webdriver.Firefox()
+		driver.set_page_load_timeout(15)
+		return driver
 
 	def login(self):
 		login = queue.Queue()
@@ -28,8 +30,11 @@ class loginSession:
 			login.put(host)
 
 		for x in range(len(self.site)):
-			loginSession.sessions.append(session.get())
-			login.join()
+			if session.get():
+				loginSession.sessions.append(session.get())
+				login.join()
+			else:
+				login.join()
 
 class sendSMSphase(loginSession):
 	sendDate = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
