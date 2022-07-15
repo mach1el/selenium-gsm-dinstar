@@ -4,20 +4,97 @@ database:
 
 test:
   hosts:
+    - ip=10.10.92.155 username=admin password=Admin@1234!
+
+d1:
+  hosts:
+    - ip=10.10.78.23 username=admin password=Admin@1234!
+    - ip=10.10.78.24 username=admin password=Admin@1234!
+    - ip=10.10.78.26 username=admin password=Admin@1234!
+    - ip=10.10.78.27 username=admin password=Admin@1234!
+    - ip=10.10.78.28 username=admin password=Admin@1234!
+
+d38:
+  hosts:
+    - ip=10.10.92.31 username=admin password=Admin@1234!
+    - ip=10.10.92.32 username=admin password=Admin@1234!
     - ip=10.10.92.33 username=admin password=Admin@1234!
     - ip=10.10.92.34 username=admin password=Admin@1234!
+    - ip=10.10.92.35 username=admin password=Admin@1234!
+
+d23:
+  hosts:
+    - ip=10.10.93.12 username=admin password=Admin@1234!
+    - ip=10.10.93.13 username=admin password=Admin@1234!
+    - ip=10.10.93.14 username=admin password=Admin@1234!
+    - ip=10.10.93.15 username=admin password=Admin@1234!
+    - ip=10.10.93.16 username=admin password=Admin@1234!
+    - ip=10.10.93.17 username=admin password=Admin@1234!
+    - ip=10.10.93.19 username=admin password=Admin@1234!
+    - ip=10.10.93.21 username=admin password=Admin@1234!
+    - ip=10.10.93.22 username=admin password=Admin@1234!
+    - ip=10.10.93.23 username=admin password=Admin@1234!
+
+ql13:
+  hosts:
+    - ip=10.10.94.31 username=admin password=Admin@1234!
+
+d8:
+  hosts:
+    - ip=10.10.95.27 username=admin password=Admin@1234!
+    - ip=10.10.95.28 username=admin password=Admin@1234!
+
+hn:
+  hosts:
+    - ip=10.10.151.11 username=admin password=Admin@1234!
+    - ip=10.10.151.13 username=admin password=Admin@1234!
+    - ip=10.10.153.15 username=admin password=Admin@1234!
+
+hdk:
+  hosts:
+    - ip=10.10.89.28 username=admin password=Admin@1234!
+    - ip=10.10.89.29 username=admin password=Admin@1234!
+
+cctl:
+  hosts:
+    - ip=10.10.97.12 username=admin password=Admin@1234!
+    - ip=10.10.97.13 username=admin password=Admin@1234!
+    - ip=10.10.97.14 username=admin password=Admin@1234!
+    - ip=10.10.97.20 username=admin password=Admin@1234!
+    - ip=10.10.97.24 username=admin password=Admin@1234!
+
+144ch:
+  hosts:
+    - ip=10.10.80.51 username=admin password=Admin@1234!
+    - ip=10.10.80.53 username=admin password=Admin@1234!
+    - ip=10.10.80.57 username=admin password=Admin@1234!
+    - ip=10.10.80.59 username=admin password=Admin@1234!
+    - ip=10.10.80.61 username=admin password=Admin@1234!
+    - ip=10.10.80.201 username=admin password=Admin@1234!
+    - ip=10.10.80.202 username=admin password=Admin@1234!
+    - ip=10.10.80.204 username=admin password=Admin@1234!
+    - ip=10.10.80.205 username=admin password=Admin@1234!
+
+lg:
+  hosts:
+    - ip=10.10.98.14 username=admin password=Admin@1234!
+    - ip=10.10.98.15 username=admin password=Admin@1234!
+    - ip=10.10.98.16 username=admin password=Admin@1234!
+    - ip=10.10.98.17 username=admin password=Admin@1234!
+    - ip=10.10.98.18 username=admin password=Admin@1234!
+    - ip=10.10.98.21 username=admin password=Admin@1234!
+    - ip=10.10.98.22 username=admin password=Admin@1234!
+
+glx:
+  hosts:
+    - ip=10.10.152.66 username=admin password=Admin@1234!
+    - ip=10.10.152.67 username=admin password=Admin@1234!
+
 d22:
   hosts:
     - ip=10.10.88.11 username=admin password=Admin@1234!
     - ip=10.10.88.13 username=admin password=Admin@1234!
-    - ip=10.10.88.12 username=admin password=Admin@1234!
-    - ip=10.10.88.14 username=admin password=Admin@1234!
-    - ip=10.10.88.15 username=admin password=Admin@1234!
-    - ip=10.10.88.10 username=admin password=Admin@1234!
     - ip=10.10.88.18 username=admin password=Admin@1234!
     - ip=10.10.88.19 username=admin password=Admin@1234!
     - ip=10.10.88.20 username=admin password=Admin@1234!
     - ip=10.10.88.21 username=admin password=Admin@1234!
-    - ip=10.10.88.16 username=admin password=Admin@1234!
-    - ip=10.10.88.22 username=admin password=Admin@1234!
-    - ip=10.10.88.17 username=admin password=Admin@1234!
