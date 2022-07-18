@@ -30,7 +30,7 @@ class loginSession:
 			login.put(host)
 
 		for x in range(len(self.site)):
-			if session.get():
+			if not session.get():
 				loginSession.sessions.append(session.get())
 				login.join()
 			else:
