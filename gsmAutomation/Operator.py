@@ -34,7 +34,7 @@ class loginSession:
 			if state == "Timeout":
 				login.join()
 			else:
-				loginSession.sessions.append(sate)
+				loginSession.sessions.append(state)
 				login.join()
 
 class sendSMSphase(loginSession):
