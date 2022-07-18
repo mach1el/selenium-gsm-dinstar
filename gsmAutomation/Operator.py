@@ -31,7 +31,7 @@ class loginSession:
 
 		for x in range(len(self.site)):
 			state = session.get()
-			if state == "Timeout"
+			if state == "Timeout":
 				login.join()
 			else:
 				loginSession.sessions.append(sate)
