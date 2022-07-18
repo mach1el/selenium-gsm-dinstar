@@ -35,7 +35,7 @@ class Login(Thread):
 			self.session.task_done()
 		except TimeoutException as ex:
 			self.driver.close()
-			self.session.put(False)
+			self.session.put("Timeout")
 			self.session.task_done()
 			self.login.task_done()
 		except:

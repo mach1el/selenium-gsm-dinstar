@@ -30,10 +30,11 @@ class loginSession:
 			login.put(host)
 
 		for x in range(len(self.site)):
-			if not session.get():
-				loginSession.sessions.append(session.get())
+			state = session.get()
+			if state == "Timeout"
 				login.join()
 			else:
+				loginSession.sessions.append(sate)
 				login.join()
 
 class sendSMSphase(loginSession):
