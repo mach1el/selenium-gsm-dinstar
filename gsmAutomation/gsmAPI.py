@@ -18,7 +18,7 @@ class query_sms_result(Thread):
 		self.headers = {"Content-Type" : "application/json"}
 		self.data = {
 			"time_after":self.date,
-			"number":["1414"],
+			"number":["0976048820"],
 			"port":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31]
 		}
 
