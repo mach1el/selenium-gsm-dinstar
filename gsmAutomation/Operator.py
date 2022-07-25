@@ -3,7 +3,7 @@ import time
 import queue
 from datetime import datetime
 from selenium import webdriver
-from .gsmAPI import query_sms_deliver_status
+from .gsmAPI import query_sms_deliver_status,query_sms_result
 from .gsmOperating import Login,SendSMS,ClearSMS,DisablePort
 from selenium.webdriver.remote.command import Command
 
@@ -109,6 +109,30 @@ class API(sendSMSphase):
 	def __init__(self,site):
 		self.site = site
 		self.date = sendSMSphase.sendDate
+
+	def _check_query_sms_result(self):
+		data_list = []
+		hostQueue = queue.Queue()
+		dataQueue = queue.Queue()
+
+		for x in range(len(self.site)):
+			t=query_sms_result(hostQueue,dataQueue,self.date)
+			t.daemon=True
+			t.start()
+
+		for host in self.site:
+			hostQueue.put(host)
+
+		for x in range(len(self.site)):
+			data = dataQueue.get()
+			if data == "Failed":
+				dataQueue.join()
+			else:
+				data_list.append(data)
+				hostQueue.join()
+				dataQueue.join()
+
+		return data_list
 
 	def _check_deliver_status(self):
 		data_list = []
