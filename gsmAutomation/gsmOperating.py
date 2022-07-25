@@ -57,7 +57,7 @@ class SendSMS(Thread):
 			time.sleep(2)
 			driver.find_element(By.ID,"WIAMsgSend")
 			driver.find_element(By.XPATH,"//input[@type='checkbox' and @name='Indexall']").click()
-			driver.find_element(By.NAME,"Addressee").send_keys("0976048820")
+			driver.find_element(By.NAME,"Addressee").send_keys("1414")
 			driver.find_element(By.NAME,"MsgInfo").send_keys("TTTB")
 			driver.find_element(By.XPATH,"//input[@type='submit' and @value='Send']").click()
 			self.queue.task_done()
