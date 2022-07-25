@@ -92,9 +92,4 @@ glx:
 
 d22:
   hosts:
-    - ip=10.10.88.11 username=admin password=Admin@1234!
-    - ip=10.10.88.13 username=admin password=Admin@1234!
-    - ip=10.10.88.18 username=admin password=Admin@1234!
-    - ip=10.10.88.19 username=admin password=Admin@1234!
-    - ip=10.10.88.20 username=admin password=Admin@1234!
-    - ip=10.10.88.21 username=admin password=Admin@1234!
+    - ip=10.10.88.12 username=admin password=Admin@1234!
